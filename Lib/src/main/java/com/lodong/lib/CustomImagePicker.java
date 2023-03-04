@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.fragment.app.Fragment;
+
 import com.lodong.multipleimagepickers.MainActivity;
 
 
@@ -14,6 +16,7 @@ public class CustomImagePicker {
     Context context;
     Activity activity;
     Integer backGroundImageId, ButtonHeight, ButtonWidth, REQUEST_PICK_MULTI_IMAGES,btn_textColor,layoutBackground;
+    Fragment fragment;
 
 
     private CustomImagePicker(Builder builder) {
@@ -25,6 +28,7 @@ public class CustomImagePicker {
         this.REQUEST_PICK_MULTI_IMAGES = builder.REQUEST_PICK_MULTI_IMAGES;
         this.btn_textColor = builder.btn_textColor;
         this.layoutBackground = builder.layoutBackground;
+        this.fragment = builder.fragment;
 
 
     }
@@ -58,7 +62,12 @@ public class CustomImagePicker {
             intent.putExtra("background",layoutBackground);
         }
 
-        activity.startActivityForResult(intent, REQUEST_PICK_MULTI_IMAGES);
+        if(fragment!=null){
+            activity.startActivityForResult(intent, REQUEST_PICK_MULTI_IMAGES);
+        }else{
+            fragment.startActivityForResult(intent,REQUEST_PICK_MULTI_IMAGES);
+        }
+
 
     }
 
@@ -68,6 +77,7 @@ public class CustomImagePicker {
         // required parameters
         Context context;
         Activity activity;
+        Fragment fragment;
 
 
         // optional parameters
@@ -102,6 +112,11 @@ public class CustomImagePicker {
 
         public Builder setLayoutBackgroundColor(Integer backgroundColor){
             layoutBackground = backgroundColor;
+            return this;
+        }
+
+        public Builder setFragment(Fragment fragment){
+            this.fragment = fragment;
             return this;
         }
         public CustomImagePicker build() {
