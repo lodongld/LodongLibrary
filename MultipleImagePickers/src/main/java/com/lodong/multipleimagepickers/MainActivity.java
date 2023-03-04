@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         });
         RecyclerView rcv = findViewById(R.id.rcv_imagePick);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
+        gridLayout.setStackFromEnd(true);
         rcv.setLayoutManager(gridLayout);
         GridAdapter adapter = new GridAdapter(this, list, this);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 //Create an array to store path to all the images
         String[] arrPath = new String[count];
 
-        for (int i = count-1; i == 0; i--) {
+        for (int i = count; i < 0; i++) {
             cursor.moveToPosition(i);
             int dataColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
             Data data = new Data();
@@ -107,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
     public void onClick(ArrayList<Integer> positionList) {
         getSelected.clear();
         getSelected.addAll(positionList);
-        Log.d("왔어요", "ㅇㅇ");
 
         tv.setText(positionList.size() + "개 선택됨");
 
