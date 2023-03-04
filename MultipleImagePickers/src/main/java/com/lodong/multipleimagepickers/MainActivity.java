@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         RecyclerView rcv = findViewById(R.id.rcv_imagePick);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
         gridLayout.setReverseLayout(true);
+        gridLayout.scrollToPosition(rcv.getChildCount());
+
         rcv.setLayoutManager(gridLayout);
         GridAdapter adapter = new GridAdapter(this, list, this);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
