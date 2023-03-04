@@ -13,7 +13,7 @@ public class CustomImagePicker {
 
     Context context;
     Activity activity;
-    Integer backGroundImageId, ButtonHeight, ButtonWidth, REQUEST_PICK_MULTI_IMAGES,btn_textColor;
+    Integer backGroundImageId, ButtonHeight, ButtonWidth, REQUEST_PICK_MULTI_IMAGES,btn_textColor,layoutBackground;
 
 
     private CustomImagePicker(Builder builder) {
@@ -24,6 +24,7 @@ public class CustomImagePicker {
         this.ButtonWidth = builder.ButtonWidth;
         this.REQUEST_PICK_MULTI_IMAGES = builder.REQUEST_PICK_MULTI_IMAGES;
         this.btn_textColor = builder.btn_textColor;
+        this.layoutBackground = builder.layoutBackground;
 
 
     }
@@ -53,6 +54,9 @@ public class CustomImagePicker {
             intent.putExtra("btn_textColor",btn_textColor);
         }
 
+        if(layoutBackground != null){
+            intent.putExtra("background",layoutBackground);
+        }
 
         activity.startActivityForResult(intent, REQUEST_PICK_MULTI_IMAGES);
 
@@ -67,7 +71,7 @@ public class CustomImagePicker {
 
 
         // optional parameters
-        Integer backGroundImageId, ButtonHeight, ButtonWidth, REQUEST_PICK_MULTI_IMAGES,btn_textColor;
+        Integer backGroundImageId, ButtonHeight, ButtonWidth, REQUEST_PICK_MULTI_IMAGES,btn_textColor,layoutBackground;
 
         public Builder(Context context, Activity activity, Integer intentId) {
             this.context = context;
@@ -93,6 +97,11 @@ public class CustomImagePicker {
 
         public Builder setButtonTextColor(Integer textColor){
             btn_textColor = textColor;
+            return this;
+        }
+
+        public Builder setLayoutBackgroundColor(Integer backgroundColor){
+            layoutBackground = backgroundColor;
             return this;
         }
         public CustomImagePicker build() {
