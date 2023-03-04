@@ -8,6 +8,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,16 +27,28 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
     ActionBar ab;
     ArrayList<Integer> getSelected = new ArrayList<>();
 
-
+    TextView tv;
+    LinearLayout lo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_photo_gallery);
 
-        ab = getSupportActionBar();
-//        ab.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
-
         Button btn = findViewById(R.id.btn);
+        tv = findViewById(R.id.tv_text);
+        lo = findViewById(R.id.lo);
+        Intent getintent = getIntent();
+
+        if(getintent.getIntExtra("background",0)!=0){
+            lo.setBackgroundColor(getintent.getIntExtra("background",0));
+        }
+        if(getintent.getIntExtra("ImageId",0)!=0){
+            btn.setBackground(getResources().getDrawable(getintent.getIntExtra("ImageId",0)));
+        }
+        if(getintent.getIntExtra("btn_textColor",0)!=0){
+            btn.setTextColor(getResources().getColor(getintent.getIntExtra("btn_textColor",0)));
+        }
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +108,8 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         getSelected.clear();
         getSelected.addAll(positionList);
         Log.d("왔어요", "ㅇㅇ");
-        ab.setTitle(positionList.size() + "개 선택됨");
-        ab.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+
+        tv.setText(positionList.size() + "개 선택됨");
 
 
     }
