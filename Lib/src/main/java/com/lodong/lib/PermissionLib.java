@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat;
 public class PermissionLib {
 
 
-    public void PermissionReadAndWriteFiles(String permissionName, Context context, Activity activity, Integer requestNumber) {
+    public void permissionReadAndWriteFiles(Context context, Activity activity, Integer requestNumber) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()) {
@@ -37,7 +37,7 @@ public class PermissionLib {
 
     }
 
-    public void PermissionWriteFiles(String permissionName, Context context, Activity activity, Integer requestNumber) {
+    public void permissionWriteFiles(Context context, Activity activity, Integer requestNumber) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
@@ -55,7 +55,7 @@ public class PermissionLib {
         }
     }
 
-    public void PermissionReadFiles(String permissionName, Context context, Activity activity, Integer requestNumber) {
+    public void permissionReadFiles(Context context, Activity activity, Integer requestNumber) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
@@ -76,8 +76,7 @@ public class PermissionLib {
     }
 
 
-    public Boolean IsFileReadPermissionGranted(String permissionName, Context context, Activity
-            activity, Integer requestNumber) {
+    public Boolean isFileReadPermissionGranted(Context context) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             return false;
         } else {
@@ -85,8 +84,7 @@ public class PermissionLib {
         }
     }
 
-    public Boolean IsFileWrtiePermissionGranted(String permissionName, Context
-            context, Activity activity, Integer requestNumber) {
+    public Boolean isFileWrtiePermissionGranted(Context context) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             return false;
         } else {
@@ -95,8 +93,7 @@ public class PermissionLib {
     }
 
 
-    public Boolean IsFileAllPermissionGranted(String permissionName, Context context, Activity
-            activity, Integer requestNumber) {
+    public Boolean isFileAllPermissionGranted(Context context) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED &&
                 ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
             return true;

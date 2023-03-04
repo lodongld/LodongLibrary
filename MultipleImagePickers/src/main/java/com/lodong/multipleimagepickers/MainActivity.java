@@ -44,9 +44,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
                     arrayList.add(list.get(getSelected.get(i)).getUri());
                 }
                 Intent intentR = new Intent();
-                Bundle args = new Bundle();
-                args.putSerializable("data",(Serializable)arrayList);
-                intentR.putExtra("data",args);
+                intentR.putExtra("data",arrayList);
                 setResult(RESULT_OK,intentR); //결과를 저장
                 finish();//액티비티 종료
             }
