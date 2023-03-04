@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 
     @Override
     public void onClick(ArrayList<Integer> positionList) {
+        getSelected.clear();
         getSelected.addAll(positionList);
         Log.d("왔어요", "ㅇㅇ");
         ab.setTitle(positionList.size() + "개 선택됨");
