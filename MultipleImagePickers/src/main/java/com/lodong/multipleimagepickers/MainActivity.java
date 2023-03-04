@@ -1,5 +1,6 @@
 package com.lodong.multipleimagepickers;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements GridAdapter.onClickButton {
@@ -37,7 +39,16 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("확인사이즈", String.valueOf(getSelected.size()));
+                ArrayList<String> arrayList = new ArrayList<>();
+                for(int i =0; i<getSelected.size(); i++){
+                    arrayList.add(list.get(getSelected.get(i)).getUri());
+                }
+                Intent intentR = new Intent();
+                Bundle args = new Bundle();
+                args.putSerializable("data",(Serializable)arrayList);
+                intentR.putExtra("data",args);
+                setResult(RESULT_OK,intentR); //결과를 저장
+                finish();//액티비티 종료
             }
         });
         RecyclerView rcv = findViewById(R.id.rcv_imagePick);

@@ -1,6 +1,8 @@
 package com.lodong.multipleimagepickers;
 
-public class Data {
+import java.io.Serializable;
+
+public class Data implements Serializable {
     String uri;
     Boolean selected;
 
