@@ -25,6 +25,9 @@ public class CustomImagePicker {
         this.REQUEST_PICK_MULTI_IMAGES = builder.REQUEST_PICK_MULTI_IMAGES;
 
 
+    }
+
+    public void Excute(){
         Intent intent = new Intent(activity, MainActivity.class);
 
         if (ButtonHeight == null) {
@@ -42,7 +45,6 @@ public class CustomImagePicker {
 
         intent.putExtra("ImageId", backGroundImageId);
         activity.startActivityForResult(intent, REQUEST_PICK_MULTI_IMAGES);
-
 
     }
 
