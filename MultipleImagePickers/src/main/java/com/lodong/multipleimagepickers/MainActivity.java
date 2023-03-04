@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements GridAdapter.onClickButton {
 
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         });
         RecyclerView rcv = findViewById(R.id.rcv_imagePick);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
-        gridLayout.setReverseLayout(true);
         rcv.setLayoutManager(gridLayout);
         GridAdapter adapter = new GridAdapter(this, list, this);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 //            arrPath[i] = cursor.getString(dataColumnIndex);
 //            Log.i("PATH", arrPath[i]);
             if (i == count - 1) {
+                Collections.reverse(list);
                 adapter.notifyDataSetChanged();
                 rcv.scrollToPosition(rcv.getChildCount()-1);
             }
