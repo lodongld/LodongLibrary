@@ -63,9 +63,10 @@ public class CustomImagePicker {
         }
 
         if(fragment!=null){
-            activity.startActivityForResult(intent, REQUEST_PICK_MULTI_IMAGES);
-        }else{
             fragment.startActivityForResult(intent,REQUEST_PICK_MULTI_IMAGES);
+        }else{
+            activity.startActivityForResult(intent, REQUEST_PICK_MULTI_IMAGES);
+
         }
 
 
