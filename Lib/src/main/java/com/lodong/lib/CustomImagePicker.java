@@ -64,16 +64,19 @@ public class CustomImagePicker {
         }
 
 
-        public void setBackGroundImageId(Integer backGroundImageId) {
+        public Builder setBackGroundImageId(Integer backGroundImageId) {
             this.backGroundImageId = backGroundImageId;
+            return this;
         }
 
-        public void setButtonHeight(Integer buttonHeight) {
+        public Builder setButtonHeight(Integer buttonHeight) {
             ButtonHeight = buttonHeight;
+            return this;
         }
 
-        public void setButtonWidth(Integer buttonWidth) {
+        public Builder setButtonWidth(Integer buttonWidth) {
             ButtonWidth = buttonWidth;
+            return this;
         }
 
         public CustomImagePicker build() {
