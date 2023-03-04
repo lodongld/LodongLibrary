@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 //Create an array to store path to all the images
         String[] arrPath = new String[count];
 
-        for (int i = count; i < 0; i++) {
+        for (int i = 0; i < count; i++) {
             cursor.moveToPosition(i);
             int dataColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
             Data data = new Data();
