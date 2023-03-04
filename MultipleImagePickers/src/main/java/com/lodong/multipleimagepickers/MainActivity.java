@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 //            Log.i("PATH", arrPath[i]);
             if (i == count - 1) {
                 adapter.notifyDataSetChanged();
-                rcv.scrollToPosition(rcv.getChildCount());
+                rcv.scrollToPosition(rcv.getChildCount()-1);
             }
         }
 // The cursor should be freed up after use with close()
