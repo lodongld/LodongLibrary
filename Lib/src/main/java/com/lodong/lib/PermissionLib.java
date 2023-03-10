@@ -12,8 +12,12 @@ import android.provider.Settings;
 
 import androidx.core.content.ContextCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PermissionLib {
 
+    List<String> permissions = new ArrayList<>();
 
     public void permissionReadAndWriteFiles(Context context, Activity activity, Integer requestNumber) {
 
@@ -75,6 +79,62 @@ public class PermissionLib {
         }
     }
 
+//    public void permissionCamera(Context context, Activity activity, Integer requestNumber) {
+//        String[] permissionList;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            if (!Environment.isExternalStorageManager()) {
+//                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+//                intent.addCategory("android.intent.category.DEFAULT");
+//                intent.setData(Uri.parse(String.format("package:%s", context.getApplicationContext().getPackageName())));
+//                activity.startActivityForResult(intent, requestNumber);
+//
+//            }else{
+//
+//            }
+//        }else{
+//            List<String> permissions = new ArrayList<>();
+//            if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+//                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//
+//            }
+//            if(ContextCompat.checkSelfPermission(context,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
+//                permissions.add(Manifest.permission.CAMERA);
+//            }
+//
+//
+//            permissionList = new String[permissions.size()];
+//
+//            for(int index = 0; index<permissions.size(); index++){
+//
+//                permissionList[index] = permissions.get(index);
+//
+//            }
+//
+//            activity.requestPermissions(permissionList, 1000);
+//
+//        }
+//
+//
+//
+//    }
+
+    public void permissionCamera(Context context, Activity activity, Integer requestNumber) {
+        String[] permissionList;
+        List<String> permissions = new ArrayList<>();
+
+
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
+                ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
+                ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+
+            activity.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, requestNumber);
+
+
+        }
+
+
+    }
+
 
     public Boolean isFileReadPermissionGranted(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -129,4 +189,14 @@ public class PermissionLib {
             }
         }
     }
+
+    public Boolean isCameraPermissionGranted(Context context) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 }

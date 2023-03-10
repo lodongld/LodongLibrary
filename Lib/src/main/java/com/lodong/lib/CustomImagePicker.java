@@ -33,7 +33,7 @@ public class CustomImagePicker {
 
     }
 
-    public void Excute(){
+    public void excute(){
 
         Intent intent = new Intent(activity, MainActivity.class);
 
