@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,11 +52,15 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         }
 
         if(getintent.getIntExtra("Height",0)!=0){
-            btn.setHeight(getintent.getIntExtra("Height",0));
+            ViewGroup.LayoutParams params = btn.getLayoutParams();
+            params.width =getintent.getIntExtra("Height",0);
+            btn.setLayoutParams(params);
         }
 
         if(getintent.getIntExtra("Width",0)!=0){
-            btn.setHeight(getintent.getIntExtra("Width",0));
+            ViewGroup.LayoutParams params = btn.getLayoutParams();
+            params.width =getintent.getIntExtra("Width",0);
+            btn.setLayoutParams(params);
         }
 
 
