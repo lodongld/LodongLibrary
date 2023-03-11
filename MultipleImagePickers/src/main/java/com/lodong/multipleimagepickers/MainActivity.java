@@ -50,6 +50,14 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
             btn.setTextColor(getResources().getColor(getintent.getIntExtra("btn_textColor",0)));
         }
 
+        if(getintent.getIntExtra("Height",0)!=0){
+            btn.setHeight(getintent.getIntExtra("Height",0));
+        }
+
+        if(getintent.getIntExtra("Width",0)!=0){
+            btn.setHeight(getintent.getIntExtra("Width",0));
+        }
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
