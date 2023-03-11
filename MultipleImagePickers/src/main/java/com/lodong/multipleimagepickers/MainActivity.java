@@ -2,6 +2,7 @@ package com.lodong.multipleimagepickers;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
             ViewGroup.LayoutParams params = btn.getLayoutParams();
             params.width =getintent.getIntExtra("Width",0);
             btn.setLayoutParams(params);
+        }
+
+        if(getintent.getIntExtra("font",0)!=0){
+
+            Typeface typeface = ResourcesCompat.getFont(this, getintent.getIntExtra("font",0));
+            btn.setTypeface(typeface);
         }
 
 
