@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 
         if(getintent.getIntExtra("Height",0)!=0){
             ViewGroup.LayoutParams params = btn.getLayoutParams();
-            params.width =getintent.getIntExtra("Height",0);
+            params.height =getintent.getIntExtra("Height",0);
             btn.setLayoutParams(params);
         }
 
