@@ -17,7 +17,7 @@ public class CustomImagePicker {
     Activity activity;
     Integer backGroundImageId, ButtonHeight, ButtonWidth, REQUEST_PICK_MULTI_IMAGES,btn_textColor,layoutBackground;
     Fragment fragment;
-    Boolean isMultiPick = true;
+    Boolean isMultiPick;
 
 
     private CustomImagePicker(Builder builder) {
@@ -64,10 +64,15 @@ public class CustomImagePicker {
             intent.putExtra("background",layoutBackground);
         }
 
-        if(isMultiPick == true){
-            intent.putExtra("isMultiPick",true);
+        if(isMultiPick !=null){
+            if(isMultiPick==true){
+                intent.putExtra("isMultiPick",true);
+            }else{
+                intent.putExtra("isMultiPick",false);
+            }
+
         }else{
-            intent.putExtra("isMultiPick",false);
+            intent.putExtra("isMultiPick",true);
         }
 
         if(fragment!=null){
