@@ -17,7 +17,7 @@ public class CustomImagePicker {
     Activity activity;
     Integer backGroundImageId, ButtonHeight, ButtonWidth, REQUEST_PICK_MULTI_IMAGES,btn_textColor,layoutBackground;
     Fragment fragment;
-    Boolean isMultiPick;
+    Boolean isMultiPick = true;
 
 
     private CustomImagePicker(Builder builder) {
