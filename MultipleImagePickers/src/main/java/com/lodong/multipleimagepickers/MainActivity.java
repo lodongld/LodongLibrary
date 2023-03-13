@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 
     TextView tv;
     LinearLayout lo;
+    RecyclerView rcv;
+    private Boolean isMulti;
+    GridAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         }
 
 
+        isMulti = getintent.getBooleanExtra("isMultiPick",true);
+
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,10 +92,10 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
                 finish();//액티비티 종료
             }
         });
-        RecyclerView rcv = findViewById(R.id.rcv_imagePick);
+        rcv = findViewById(R.id.rcv_imagePick);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
         rcv.setLayoutManager(gridLayout);
-        GridAdapter adapter = new GridAdapter(this, list, this);
+        adapter = new GridAdapter(this, list, this,isMulti);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         rcv.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         rcv.setAdapter(adapter);
@@ -129,10 +136,28 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 
     @Override
     public void onClick(ArrayList<Integer> positionList) {
+
         getSelected.clear();
         getSelected.addAll(positionList);
 
         tv.setText(positionList.size() + "개 선택됨");
+
+    }
+
+    @Override
+    public void onClickNotMulti(ArrayList<Integer> positionList, Integer pos) {
+        getSelected.clear();
+        getSelected.addAll(positionList);
+
+        tv.setText(positionList.size() + "개 선택됨");
+
+        ((ImageView)rcv.findViewHolderForAdapterPosition(pos).itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.circle_custom);
+        ((ImageView)rcv.findViewHolderForAdapterPosition(pos).itemView.findViewById(R.id.cover)).setVisibility(View.GONE);
+        list.get(pos).setSelected(false);
+        positionList.remove(positionList.indexOf(pos));
+
+        adapter.notifyItemChanged(pos);
+
 
 
     }

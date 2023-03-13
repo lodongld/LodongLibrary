@@ -17,6 +17,7 @@ public class CustomImagePicker {
     Activity activity;
     Integer backGroundImageId, ButtonHeight, ButtonWidth, REQUEST_PICK_MULTI_IMAGES,btn_textColor,layoutBackground;
     Fragment fragment;
+    Boolean isMultiPick;
 
 
     private CustomImagePicker(Builder builder) {
@@ -29,6 +30,7 @@ public class CustomImagePicker {
         this.btn_textColor = builder.btn_textColor;
         this.layoutBackground = builder.layoutBackground;
         this.fragment = builder.fragment;
+        this.isMultiPick = builder.isMultiPick;
 
 
     }
@@ -62,6 +64,12 @@ public class CustomImagePicker {
             intent.putExtra("background",layoutBackground);
         }
 
+        if(isMultiPick == true){
+            intent.putExtra("isMultiPick",true);
+        }else{
+            intent.putExtra("isMultiPick",false);
+        }
+
         if(fragment!=null){
             fragment.startActivityForResult(intent,REQUEST_PICK_MULTI_IMAGES);
         }else{
@@ -79,7 +87,7 @@ public class CustomImagePicker {
         Context context;
         Activity activity;
         Fragment fragment;
-
+        Boolean isMultiPick;
 
         // optional parameters
         Integer backGroundImageId, ButtonHeight, ButtonWidth, REQUEST_PICK_MULTI_IMAGES,btn_textColor,layoutBackground;
@@ -118,6 +126,11 @@ public class CustomImagePicker {
 
         public Builder setFragment(Fragment fragment){
             this.fragment = fragment;
+            return this;
+        }
+
+        public Builder setMultiPick(Boolean isMultiPick){
+            this.isMultiPick = isMultiPick;
             return this;
         }
         public CustomImagePicker build() {

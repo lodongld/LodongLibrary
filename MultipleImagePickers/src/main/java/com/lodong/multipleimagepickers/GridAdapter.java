@@ -20,12 +20,16 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     ArrayList<Integer> positionList = new ArrayList<>();
     Activity activity;
     onClickButton onClickButton;
+    Boolean isMulti;
+    boolean isSelected = false;
+    int selectedPos;
 
-    public GridAdapter(Context context, ArrayList<Data > list,onClickButton onClickButton) {
+    public GridAdapter(Context context, ArrayList<Data > list,onClickButton onClickButton,Boolean isMulti) {
         this.context = context;
         this.list = list;
         this.activity = activity;
         this.onClickButton = onClickButton;
+        this.isMulti = isMulti;
 
     }
 
@@ -79,35 +83,60 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
             chkImage = itemView.findViewById(R.id.chkImage);
             cover = itemView.findViewById(R.id.cover);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(list.get(getAdapterPosition()).getSelected()==false){
+            if(isMulti==true) {
 
-                        ((ImageView)itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.ic_baseline_check_circle_24);
-                        ((ImageView)itemView.findViewById(R.id.cover)).setVisibility(View.VISIBLE);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (list.get(getAdapterPosition()).getSelected() == false) {
+
+                            ((ImageView) itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.ic_baseline_check_circle_24);
+                            ((ImageView) itemView.findViewById(R.id.cover)).setVisibility(View.VISIBLE);
 //                        holder.chkImage.setImageResource(R.drawable.ic_baseline_check_circle_24);
 //                        holder.cover.setVisibility(View.VISIBLE);
 
-                        list.get(getAdapterPosition()).setSelected(true);
-                        positionList.add(getAdapterPosition());
+                            list.get(getAdapterPosition()).setSelected(true);
+                            positionList.add(getAdapterPosition());
 
-                        onClickButton.onClick(positionList);
-
-
+                            onClickButton.onClick(positionList);
 
 
+                        } else {
+                            ((ImageView) itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.circle_custom);
+                            ((ImageView) itemView.findViewById(R.id.cover)).setVisibility(View.GONE);
+                            list.get(getAdapterPosition()).setSelected(false);
+                            positionList.remove(positionList.indexOf(getAdapterPosition()));
+                            onClickButton.onClick(positionList);
 
-                    }else{
-                        ((ImageView)itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.circle_custom);
-                        ((ImageView)itemView.findViewById(R.id.cover)).setVisibility(View.GONE);
-                        list.get(getAdapterPosition()).setSelected(false);
-                        positionList.remove(positionList.indexOf(getAdapterPosition()));
-                        onClickButton.onClick(positionList);
+                        }
+                    }
+                });
+            }else{
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(isSelected == false){
+                            isSelected=true;
+                            selectedPos = getAdapterPosition();
+                            ((ImageView) itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.ic_baseline_check_circle_24);
+                            ((ImageView) itemView.findViewById(R.id.cover)).setVisibility(View.VISIBLE);
+                            list.get(getAdapterPosition()).setSelected(true);
+                            positionList.add(getAdapterPosition());
+                            onClickButton.onClick(positionList);
+
+                        }else{
+                            ((ImageView) itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.ic_baseline_check_circle_24);
+                            ((ImageView) itemView.findViewById(R.id.cover)).setVisibility(View.VISIBLE);
+                            list.get(getAdapterPosition()).setSelected(true);
+                            positionList.add(getAdapterPosition());
+                            onClickButton.onClickNotMulti(positionList,selectedPos);
+                        }
 
                     }
-                }
-            });
+                });
+
+            }
 
 
         }
@@ -115,6 +144,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
     public interface onClickButton{
         void onClick(ArrayList<Integer> positionList);
+        void onClickNotMulti(ArrayList<Integer> positionList,Integer pos);
 
     }
 }
