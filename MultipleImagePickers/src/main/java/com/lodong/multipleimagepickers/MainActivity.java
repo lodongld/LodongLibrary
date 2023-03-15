@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -102,9 +104,18 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 
         final String[] columns = {MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID};
         final String orderBy = MediaStore.Images.Media._ID;
+
+        Uri collection;
+
+
+         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+             collection = MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL);
+         }else {
+             collection = MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL);
+         }
 //Stores all the images from the gallery in Cursor
         Cursor cursor = getContentResolver().query(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null,
+                collection, columns, null,
                 null, orderBy);
 //Total number of images
         int count = cursor.getCount();
