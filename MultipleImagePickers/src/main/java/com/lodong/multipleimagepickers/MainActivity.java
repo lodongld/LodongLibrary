@@ -108,11 +108,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         Uri collection;
 
 
-         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-             collection = MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL);
-         }else {
-             collection = MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL);
-         }
+        collection =MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 //Stores all the images from the gallery in Cursor
         Cursor cursor = getContentResolver().query(
                 collection, columns, null,
