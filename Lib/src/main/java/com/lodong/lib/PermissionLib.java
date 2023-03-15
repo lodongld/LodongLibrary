@@ -62,11 +62,7 @@ public class PermissionLib {
     public void permissionReadFiles(Context context, Activity activity, Integer requestNumber) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                intent.addCategory("android.intent.category.DEFAULT");
-                intent.setData(Uri.parse(String.format("package:%s", context.getApplicationContext().getPackageName())));
-                activity.startActivityForResult(intent, requestNumber);
-
+                activity.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES}, requestNumber);
             }
         } else {
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
@@ -134,6 +130,7 @@ public class PermissionLib {
 
 
     }
+
 
 
     public Boolean isFileReadPermissionGranted(Context context) {
