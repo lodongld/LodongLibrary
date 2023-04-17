@@ -149,13 +149,13 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         getSelected.clear();
         getSelected.addAll(positionList);
 
-
+        tv.setText(positionList.size() + "개 선택됨");
 
         ((ImageView)rcv.findViewHolderForAdapterPosition(pos).itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.circle_custom);
         ((ImageView)rcv.findViewHolderForAdapterPosition(pos).itemView.findViewById(R.id.cover)).setVisibility(View.GONE);
         list.get(pos).setSelected(false);
         positionList.remove(positionList.indexOf(pos));
-        tv.setText(positionList.size() + "개 선택됨");
+
         adapter.notifyItemChanged(pos);
 
 
