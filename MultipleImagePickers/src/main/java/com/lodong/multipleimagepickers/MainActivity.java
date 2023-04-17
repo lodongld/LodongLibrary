@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
     @Override
     public void onClickNotMulti(ArrayList<Integer> positionList, Integer pos) {
         getSelected.clear();
-        getSelected.addAll(positionList);
+
 
         tv.setText(positionList.size() + "개 선택됨");
 
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         ((ImageView)rcv.findViewHolderForAdapterPosition(pos).itemView.findViewById(R.id.cover)).setVisibility(View.GONE);
         list.get(pos).setSelected(false);
         positionList.remove(positionList.indexOf(pos));
-
+        getSelected.addAll(positionList);
         adapter.notifyItemChanged(pos);
 
 
