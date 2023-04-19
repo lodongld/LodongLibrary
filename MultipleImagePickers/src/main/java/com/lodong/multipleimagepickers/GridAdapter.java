@@ -23,6 +23,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     Boolean isMulti;
     boolean isSelected = false;
     int selectedPos;
+    boolean isFirsttime = true;
 
     public GridAdapter(Context context, ArrayList<Data > list,onClickButton onClickButton,Boolean isMulti) {
         this.context = context;
@@ -120,24 +121,30 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                     @Override
                     public void onClick(View v) {
 
+
                         if(isSelected == false){
                             isSelected=true;
                             selectedPos = getAdapterPosition();
                             ((ImageView) itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.ic_baseline_check_circle_24);
                             ((ImageView) itemView.findViewById(R.id.cover)).setVisibility(View.VISIBLE);
-                            list.get(getAdapterPosition()).setSelected(true);
-                            positionList.add(getAdapterPosition());
-                            onClickButton.onClick(positionList);
+
 
                         }else{
                             ((ImageView) itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.ic_baseline_check_circle_24);
                             ((ImageView) itemView.findViewById(R.id.cover)).setVisibility(View.VISIBLE);
-                            list.get(getAdapterPosition()).setSelected(true);
-                            positionList.clear();
-                            positionList.add(getAdapterPosition());
+
+
+                        }
+                        positionList.clear();
+                        list.get(getAdapterPosition()).setSelected(true);
+                        positionList.add(getAdapterPosition());
+                        onClickButton.onClick(positionList);
+                        if(isFirsttime == true){
+                            onClickButton.onClick(positionList);
+                        }else{
+                            isFirsttime=false;
                             onClickButton.deletePreItemInRecyclerview();
                             onClickButton.onClick(positionList);
-
                         }
 
                     }
