@@ -2,6 +2,7 @@ package com.lodong.multipleimagepickers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     Boolean isMulti;
     boolean isSelected = false;
     int selectedPos;
-    boolean isFirsttime = true;
+    Boolean isFirsttime = true;
 
     public GridAdapter(Context context, ArrayList<Data > list,onClickButton onClickButton,Boolean isMulti) {
         this.context = context;
@@ -142,6 +143,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                         if(isFirsttime == true){
                             onClickButton.onClick(positionList);
                         }else{
+                            Log.d("진입함","ㅇㅇ");
                             isFirsttime=false;
                             onClickButton.deletePreItemInRecyclerview();
                             onClickButton.onClick(positionList);
