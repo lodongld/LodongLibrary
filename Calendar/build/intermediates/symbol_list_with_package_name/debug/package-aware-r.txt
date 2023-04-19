@@ -1,0 +1,5 @@
+com.lodong.calendar
+id ll_calendar
+id rv_calendar
+id rv_weeklist
+layout activity_main
