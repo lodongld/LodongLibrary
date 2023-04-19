@@ -139,7 +139,6 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                         positionList.clear();
                         list.get(getAdapterPosition()).setSelected(true);
                         positionList.add(getAdapterPosition());
-                        onClickButton.onClick(positionList);
                         if(isFirsttime == true){
                             onClickButton.onClick(positionList);
                         }else{
