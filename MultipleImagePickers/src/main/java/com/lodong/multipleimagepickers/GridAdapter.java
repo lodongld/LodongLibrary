@@ -133,9 +133,18 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                             onClickButton.onClick(positionList);
                         }else{
                             if(selectedPos==getAdapterPosition()){
-                                onClickButton.deletePreItemInRecyclerview(selectedPos);
-                                positionList.clear();
-                                onClickButton.onClick(positionList);
+                                if(list.get(getAdapterPosition()).getSelected()==true) {
+                                    onClickButton.deletePreItemInRecyclerview(selectedPos);
+                                    positionList.clear();
+                                    onClickButton.onClick(positionList);
+                                }else{
+                                    selectedPos = getAdapterPosition();
+                                    ((ImageView) itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.ic_baseline_check_circle_24);
+                                    ((ImageView) itemView.findViewById(R.id.cover)).setVisibility(View.VISIBLE);
+                                    list.get(getAdapterPosition()).setSelected(true);
+                                    positionList.add(getAdapterPosition());
+                                    onClickButton.onClick(positionList);
+                                }
                             }else {
                                 onClickButton.deletePreItemInRecyclerview(selectedPos);
                                 positionList.clear();
