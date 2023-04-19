@@ -144,13 +144,12 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
     }
 
     @Override
-    public void deletePreItemInRecyclerview() {
-        Log.d("확인사이즈",getSelected.get(0).toString());
-        ((ImageView)rcv.findViewHolderForAdapterPosition(getSelected.get(0)).itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.circle_custom);
-        ((ImageView)rcv.findViewHolderForAdapterPosition(getSelected.get(0)).itemView.findViewById(R.id.cover)).setVisibility(View.GONE);
-        list.get(getSelected.get(0)).setSelected(false);
-        adapter.notifyItemChanged(getSelected.get(0));
+    public void deletePreItemInRecyclerview(Integer integer) {
+        ((ImageView)rcv.findViewHolderForAdapterPosition(integer).itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.circle_custom);
+        ((ImageView)rcv.findViewHolderForAdapterPosition(integer).itemView.findViewById(R.id.cover)).setVisibility(View.GONE);
+        list.get(integer).setSelected(false);
     }
+
 
 
 }
