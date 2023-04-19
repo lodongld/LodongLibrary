@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         list.get(pos).setSelected(false);
         positionList.remove(positionList.indexOf(pos));
         tv.setText(positionList.size() + "개 선택됨");
+        adapter.updatePositionList(positionList);
         adapter.notifyItemChanged(pos);
 
 

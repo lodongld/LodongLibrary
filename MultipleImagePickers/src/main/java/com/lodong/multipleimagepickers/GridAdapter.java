@@ -72,6 +72,10 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         return list == null ? 0 : list.size();
     }
 
+    public void updatePositionList(ArrayList<Integer> positionList) {
+        this.positionList = positionList;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgThumb;
         ImageView chkImage;
