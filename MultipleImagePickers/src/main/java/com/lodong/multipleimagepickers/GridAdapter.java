@@ -133,8 +133,11 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                             ((ImageView) itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.ic_baseline_check_circle_24);
                             ((ImageView) itemView.findViewById(R.id.cover)).setVisibility(View.VISIBLE);
                             list.get(getAdapterPosition()).setSelected(true);
+                            positionList.clear();
                             positionList.add(getAdapterPosition());
-                            onClickButton.onClickNotMulti(positionList,selectedPos);
+                            onClickButton.deletePreItemInRecyclerview();
+                            onClickButton.onClick(positionList);
+
                         }
 
                     }
@@ -148,7 +151,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
     public interface onClickButton{
         void onClick(ArrayList<Integer> positionList);
-        void onClickNotMulti(ArrayList<Integer> positionList,Integer pos);
+        void deletePreItemInRecyclerview();
 
     }
 }
