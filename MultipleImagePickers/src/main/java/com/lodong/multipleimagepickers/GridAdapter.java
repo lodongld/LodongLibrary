@@ -141,9 +141,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                         positionList.add(getAdapterPosition());
                         if(isFirsttime == true){
                             onClickButton.onClick(positionList);
+                            isFirsttime=false;
                         }else{
                             Log.d("진입함","ㅇㅇ");
-                            isFirsttime=false;
                             onClickButton.deletePreItemInRecyclerview();
                             onClickButton.onClick(positionList);
                         }
