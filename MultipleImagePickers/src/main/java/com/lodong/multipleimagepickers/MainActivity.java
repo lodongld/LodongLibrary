@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 
 
             String[] projection = {MediaStore.Images.Media.DATA};
-            cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, MediaStore.Images.Media.DATE_ADDED + " desc");
+            cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, MediaStore.Images.Media.DATE_ADDED + " asc");
         } else {
-            final String orderBy = MediaStore.Images.Media.DATE_ADDED+" desc";
+            final String orderBy = MediaStore.Images.Media.DATE_ADDED+" asc";
             String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
             cursor = getContentResolver().query(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null,
