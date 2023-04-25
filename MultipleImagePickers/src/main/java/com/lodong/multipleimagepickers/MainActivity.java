@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
     RecyclerView rcv;
     private Boolean isMulti;
     GridAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,65 +49,73 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         lo = findViewById(R.id.lo);
         Intent getintent = getIntent();
 
-        if(getintent.getIntExtra("background",0)!=0){
-            lo.setBackgroundColor(getintent.getIntExtra("background",0));
+        if (getintent.getIntExtra("background", 0) != 0) {
+            lo.setBackgroundColor(getintent.getIntExtra("background", 0));
         }
-        if(getintent.getIntExtra("ImageId",0)!=0){
-            btn.setBackground(getResources().getDrawable(getintent.getIntExtra("ImageId",0)));
+        if (getintent.getIntExtra("ImageId", 0) != 0) {
+            btn.setBackground(getResources().getDrawable(getintent.getIntExtra("ImageId", 0)));
         }
-        if(getintent.getIntExtra("btn_textColor",0)!=0){
-            btn.setTextColor(getResources().getColor(getintent.getIntExtra("btn_textColor",0)));
+        if (getintent.getIntExtra("btn_textColor", 0) != 0) {
+            btn.setTextColor(getResources().getColor(getintent.getIntExtra("btn_textColor", 0)));
         }
 
-        if(getintent.getIntExtra("Height",0)!=0){
+        if (getintent.getIntExtra("Height", 0) != 0) {
             ViewGroup.LayoutParams params = btn.getLayoutParams();
-            params.height =getintent.getIntExtra("Height",0);
+            params.height = getintent.getIntExtra("Height", 0);
             btn.setLayoutParams(params);
         }
 
-        if(getintent.getIntExtra("Width",0)!=0){
+        if (getintent.getIntExtra("Width", 0) != 0) {
             ViewGroup.LayoutParams params = btn.getLayoutParams();
-            params.width =getintent.getIntExtra("Width",0);
+            params.width = getintent.getIntExtra("Width", 0);
             btn.setLayoutParams(params);
         }
 
-        if(getintent.getIntExtra("font",0)!=0){
+        if (getintent.getIntExtra("font", 0) != 0) {
 
-            Typeface typeface = ResourcesCompat.getFont(this, getintent.getIntExtra("font",0));
+            Typeface typeface = ResourcesCompat.getFont(this, getintent.getIntExtra("font", 0));
             btn.setTypeface(typeface);
         }
 
 
-        isMulti = getintent.getBooleanExtra("isMultiPick",true);
+        isMulti = getintent.getBooleanExtra("isMultiPick", true);
 
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayList<String> arrayList = new ArrayList<>();
-                for(int i =0; i<getSelected.size(); i++){
+                for (int i = 0; i < getSelected.size(); i++) {
                     arrayList.add(list.get(getSelected.get(i)).getUri());
                 }
                 Intent intentR = new Intent();
-                intentR.putExtra("data",arrayList);
-                setResult(RESULT_OK,intentR); //결과를 저장
+                intentR.putExtra("data", arrayList);
+                setResult(RESULT_OK, intentR); //결과를 저장
                 finish();//액티비티 종료
             }
         });
         rcv = findViewById(R.id.rcv_imagePick);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
         rcv.setLayoutManager(gridLayout);
-        adapter = new GridAdapter(this, list, this,isMulti);
+        adapter = new GridAdapter(this, list, this, isMulti);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         rcv.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         rcv.setAdapter(adapter);
 
-        final String[] columns = {MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID};
-        final String orderBy = MediaStore.Images.Media._ID;
-//Stores all the images from the gallery in Cursor
-        Cursor cursor = getContentResolver().query(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null,
-                null, orderBy);
+        Cursor cursor;
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+
+
+            String[] projection = {MediaStore.Images.Media.DATA};
+            cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, MediaStore.Images.Media.DATE_ADDED + " desc");
+        } else {
+            final String orderBy = MediaStore.Images.Media.DATE_ADDED+" desc";
+            String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
+            cursor = getContentResolver().query(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null,
+                    null, orderBy);
+        }
+
 //Total number of images
         int count = cursor.getCount();
 
@@ -125,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
             if (i == count - 1) {
                 Collections.reverse(list);
                 adapter.notifyDataSetChanged();
-                rcv.scrollToPosition(rcv.getChildCount()-1);
+                rcv.scrollToPosition(rcv.getChildCount() - 1);
             }
         }
 // The cursor should be freed up after use with close()
@@ -145,11 +155,10 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
 
     @Override
     public void deletePreItemInRecyclerview(Integer integer) {
-        ((ImageView)rcv.findViewHolderForAdapterPosition(integer).itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.circle_custom);
-        ((ImageView)rcv.findViewHolderForAdapterPosition(integer).itemView.findViewById(R.id.cover)).setVisibility(View.GONE);
+        ((ImageView) rcv.findViewHolderForAdapterPosition(integer).itemView.findViewById(R.id.chkImage)).setImageResource(R.drawable.circle_custom);
+        ((ImageView) rcv.findViewHolderForAdapterPosition(integer).itemView.findViewById(R.id.cover)).setVisibility(View.GONE);
         list.get(integer).setSelected(false);
     }
-
 
 
 }
