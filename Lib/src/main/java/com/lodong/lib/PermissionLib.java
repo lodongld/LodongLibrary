@@ -145,19 +145,19 @@ public class PermissionLib {
 
     //처리완료
     public Boolean isFileReadPermissionGranted(Context context) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            if (Environment.isExternalStorageManager()) {
-//                return true;
-//            } else {
-//                return false;
-//            }
-//
-//        } else {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            return false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                return true;
+            } else {
+                return false;
+            }
+
         } else {
-            return true;
-//            }
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 
