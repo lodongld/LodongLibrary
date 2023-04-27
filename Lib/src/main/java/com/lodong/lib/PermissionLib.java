@@ -66,21 +66,21 @@ public class PermissionLib {
 
     //처리완료
     public void permissionReadFiles(Context context, Activity activity, Integer requestNumber) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                intent.addCategory("android.intent.category.DEFAULT");
-                intent.setData(Uri.parse(String.format("package:%s", context.getApplicationContext().getPackageName())));
-                activity.startActivityForResult(intent, requestNumber);
-            }
-        } else {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            if (!Environment.isExternalStorageManager()) {
+//                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+//                intent.addCategory("android.intent.category.DEFAULT");
+//                intent.setData(Uri.parse(String.format("package:%s", context.getApplicationContext().getPackageName())));
+//                activity.startActivityForResult(intent, requestNumber);
+//            }
+//        } else {
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     activity.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, requestNumber);
                 }
                 return;
 //            }
-            }
+//            }
         }
     }
 
@@ -145,20 +145,20 @@ public class PermissionLib {
 
     //처리완료
     public Boolean isFileReadPermissionGranted(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (Environment.isExternalStorageManager()) {
-                return true;
-            } else {
-                return false;
-            }
-
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            if (Environment.isExternalStorageManager()) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+//
+//        } else {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            return false;
         } else {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                return false;
-            } else {
-                return true;
-            }
+            return true;
         }
+//        }
     }
 
 
