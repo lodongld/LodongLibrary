@@ -84,6 +84,40 @@ public class PermissionLib {
         }
     }
 
+
+    /**사진 불러오기 권한확인 **/
+    public Boolean isReadImagesPermission(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_DENIED) {
+                return false;
+//
+            } else {
+                return true;
+            }
+        }else{
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+    }
+
+    /** 사진 불러오기 권한 요청 **/
+    public void readImagesPermission(Activity activity, Integer requestNumber) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            activity.requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES}, requestNumber);
+        }else{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                activity.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, requestNumber);
+            }
+            return;
+//
+        }
+    }
+
+
 //    public void permissionCamera(Context context, Activity activity, Integer requestNumber) {
 //        String[] permissionList;
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
