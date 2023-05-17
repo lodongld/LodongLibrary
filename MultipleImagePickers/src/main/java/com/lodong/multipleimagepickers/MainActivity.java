@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         setContentView(R.layout.activity_custom_photo_gallery);
 
         Button btn = findViewById(R.id.btn);
+        btn.setEnabled(true);
         tv = findViewById(R.id.tv_text);
         lo = findViewById(R.id.lo);
         Intent getintent = getIntent();
@@ -84,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btn.setEnabled(false);
+                ProgressBar pg = findViewById(R.id.pg);
+                pg.setVisibility(View.VISIBLE);
                 ArrayList<String> arrayList = new ArrayList<>();
                 for (int i = 0; i < getSelected.size(); i++) {
                     arrayList.add(list.get(getSelected.get(i)).getUri());
@@ -91,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements GridAdapter.onCli
                 Intent intentR = new Intent();
                 intentR.putExtra("data", arrayList);
                 setResult(RESULT_OK, intentR); //결과를 저장
+                pg.setVisibility(View.GONE);
+
                 finish();//액티비티 종료
             }
         });
